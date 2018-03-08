@@ -1,0 +1,33 @@
+{
+  "name": "@pwa/manifest-icons",
+  "version": "0.0.0",
+  "description": "Generating icons for Web manifest",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ragingwind/pwa-manifest-icons.git"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Jimmy Moon",
+    "email": "ragingwind@gmail.com",
+    "url": "https://ragingwind.me"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc watch",
+    "prepublishOnly": "npm run build",
+    "test": "jest"
+  },
+  "main": "dist/index.js",
+  "devDependencies": {
+    "@types/core-js": "^0.9.46",
+    "@types/node": "^9.4.6",
+    "jest": "^22.4.2"
+  },
+  "dependencies": {
+    "typescript": "^2.7.2"
+  }
+}
