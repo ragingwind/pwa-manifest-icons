@@ -1,7 +1,7 @@
 {
   "name": "@pwa/manifest-icons",
   "version": "0.0.0",
-  "description": "Generating icons for Web manifest",
+  "description": "Generating icons for Web Manifest",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ragingwind/pwa-manifest-icons.git"
@@ -12,22 +12,24 @@
     "email": "ragingwind@gmail.com",
     "url": "https://ragingwind.me"
   },
+  "source": "src/index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.m.js",
+  "files": [
+    "dist"
+  ],
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "build": "tsc",
-    "dev": "tsc watch",
-    "prepublishOnly": "npm run build",
+    "build": "microbundle",
+    "dev": "microbundle watch",
+    "pretest": "npm run build",
     "test": "jest"
   },
-  "main": "dist/index.js",
   "devDependencies": {
-    "@types/core-js": "^0.9.46",
-    "@types/node": "^9.4.6",
-    "jest": "^22.4.2"
+    "jest": "^22.4.2",
+    "microbundle": "^0.4.4"
   },
-  "dependencies": {
-    "typescript": "^2.7.2"
-  }
+  "dependencies": {}
 }
