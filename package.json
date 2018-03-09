@@ -16,20 +16,19 @@
   "main": "dist/index.js",
   "module": "dist/index.m.js",
   "files": [
-    "dist"
+    "index.js"
   ],
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "build": "microbundle",
-    "dev": "microbundle watch",
-    "pretest": "npm run build",
     "test": "jest"
   },
   "devDependencies": {
-    "jest": "^22.4.2",
-    "microbundle": "^0.4.4"
+    "jest": "^22.4.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "fs-extra": "^5.0.0",
+    "jimp": "^0.2.28"
+  }
 }
