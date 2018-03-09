@@ -1,26 +1,37 @@
-# pwa-manifest-webpack-plugin
+# pwa-manifest-icons
 
-> webpack plugin for generating PWA manifest.
+> Generate icon images by Web Manifest icons property. size and location will be referenced as writing icon images
 
 # Install
 
 ```sh
-npm install --save-dev pwa-manifest-webpack-plugin
+npm install --save @pwa/manifest-icons
 ```
 
 # Usase
 
 ```js
-const PWAManifestWebpackPlugin = require('@pwa/manifest-webpack-plugin');
+const manifestIcons = require('@pwa/manifest-icons');
 
-module.exports = {
-  ...
-  plugins: [
-    new PWAManifestWebpackPlugin({
-      ...customManifestConfigs
-    })
-  ]
+const manifest = {
+  ...manifestDefault
+  icons: [{
+    'src': `${__dirname}/.tmp/images/icons/icon-144x144.png`,
+    'sizes': '144x144',
+    'type': 'image/png'
+  }, {
+    'src': `${__dirname}/.tmp/images/icons/icon-192x192.png`,
+    'sizes': '192x192',
+    'type': 'image/png'
+  }, {
+    'src': `${__dirname}/.tmp/images/icons/icon-512x512.png`,
+    'sizes': '512x512',
+    'type': 'image/png'
+  }]
 }
+
+await manifestIcons(srcImagePath, manifest.icons)
+
 ```
 
 # License
