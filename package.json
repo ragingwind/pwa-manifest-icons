@@ -1,6 +1,6 @@
 {
   "name": "@pwa/manifest-icons",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Generating icons for Web Manifest",
   "repository": {
     "type": "git",
@@ -19,8 +19,7 @@
     "index.js"
   ],
   "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org/"
+    "access": "public"
   },
   "scripts": {
     "test": "jest"
@@ -31,8 +30,5 @@
   "dependencies": {
     "fs-extra": "^5.0.0",
     "jimp": "^0.2.28"
-  },
-  "publishConfig": {
-    "access": "public"
   }
 }
