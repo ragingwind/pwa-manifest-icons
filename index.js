@@ -1,10 +1,10 @@
-const { dirname } = require('path')
+const {dirname} = require('path')
 const fs = require('fs-extra')
 const jimp = require('jimp')
 
 function resizeAndWrite(image, icons) {
 	return Promise.all(icons.map(async icon => {
-		const size =  Math.floor(/([\d]+)/.exec(icon.sizes)[0])
+		const size = Math.floor(/([\d]+)/.exec(icon.sizes)[0])
 
 		await fs.ensureDir(dirname(icon.src))
 		await image.clone()
