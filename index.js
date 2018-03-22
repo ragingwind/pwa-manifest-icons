@@ -11,7 +11,7 @@ const writeIcon = (file, icon, size) => {
 			return
 		}
 
-		file.resize(size, size).quality(100).write(icon, () => {
+		file.clone().resize(size, size).quality(100).write(icon, () => {
 			resolve(icon)
 		})
 	})
