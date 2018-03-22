@@ -28,7 +28,9 @@
     "jest": "^22.4.2"
   },
   "dependencies": {
+    "find-cache-dir": "^1.0.0",
     "fs-extra": "^5.0.0",
+    "hasha": "^3.0.0",
     "jimp": "^0.2.28"
   }
 }

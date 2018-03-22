@@ -12,26 +12,23 @@ npm install --save @pwa/manifest-icons
 
 ```js
 const manifestIcons = require('@pwa/manifest-icons');
-
 const manifest = {
-  ...manifestDefault
-  icons: [{
-    'src': `${__dirname}/.tmp/images/icons/icon-144x144.png`,
-    'sizes': '144x144',
-    'type': 'image/png'
-  }, {
-    'src': `${__dirname}/.tmp/images/icons/icon-192x192.png`,
-    'sizes': '192x192',
-    'type': 'image/png'
-  }, {
-    'src': `${__dirname}/.tmp/images/icons/icon-512x512.png`,
-    'sizes': '512x512',
-    'type': 'image/png'
-  }]
-}
+  ...defaultManifest
+};
 
-await manifestIcons(srcImagePath, manifest.icons)
-
+const manifest.icons = await manifestIcons({
+  // path for source image
+  src: path.resolve(process.cwd(). './assets/icon.png'),
+  // using cached images
+  cache: true,
+  // root path for output icons
+  output: './static/manifest/icons',
+  // revamp icon path with publicPath, which will be returned after resize. if null, using 
+  // output path
+  publicPath: '/static/manifest/icons/',
+  // sizes for resizing, default is 192, 512
+  sizes: [192, 512]
+})
 ```
 
 # License
