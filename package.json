@@ -1,6 +1,6 @@
 {
   "name": "@pwa/manifest-icons",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Generating icons for Web Manifest",
   "repository": {
     "type": "git",
