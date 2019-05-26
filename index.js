@@ -1,4 +1,4 @@
-const {dirname, resolve, join, basename, extname} = require('path')
+const {join, basename, extname} = require('path')
 const fs = require('fs-extra')
 const jimp = require('jimp')
 const findCacheDir = require('find-cache-dir')
