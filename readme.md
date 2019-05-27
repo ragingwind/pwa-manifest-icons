@@ -16,19 +16,27 @@ const manifest = {
   ...defaultManifest
 };
 
-const manifest.icons = await manifestIcons({
-  // path for source image
-  src: path.resolve(process.cwd(). './assets/icon.png'),
-  // using cached images
-  cache: true,
-  // root path for output icons
-  output: './static/manifest/icons',
-  // revamp icon path with publicPath, which will be returned after resize. if null, using 
-  // output path
-  publicPath: '/static/manifest/icons/',
-  // sizes for resizing, default is 192, 512
-  sizes: [192, 512]
-})
+(() => {
+  const manifest.icons = await manifestIcons({
+    // path for source image
+    src: path.resolve(process.cwd(). './assets/icon.png'),
+    // using cached images
+    cache: true,
+    // root path for output icons
+    output: './static/manifest/icons',
+    // revamp icon path with publicPath, which will be returned after resize. if null, using
+    // output path
+    publicPath: '/static/manifest/icons/',
+    // sizes for resizing, default is 192, 512
+    sizes: [192, 512]
+  });
+})();
+
+// or using sync APIs powered by https://github.com/ybogdanov/node-sync
+
+const manifest.icons = manifestIcons.sync({
+  ...
+});
 ```
 
 # License
