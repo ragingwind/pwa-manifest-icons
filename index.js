@@ -1,9 +1,8 @@
 const { join, basename, extname } = require('path');
 const fs = require('fs-extra');
-const jimp = require('jimp');
 const findCacheDir = require('find-cache-dir');
 const hasha = require('hasha');
-const sync = require('sync');
+const lipo = new (require('lipo'))();
 
 const joinCachePath = hash =>
   join(findCacheDir({ name: 'pwa-manifest-icons', create: true }), hash);
@@ -19,7 +18,7 @@ const getCachePathSync = src => {
 const cacheIcons = async ({ src, sizes }) => {
   const cachepath = await getCachePath(src);
   await fs.ensureDir(cachepath);
-  const file = await jimp.read(src);
+  const file = lipo(src);
 
   return await Promise.all(
     sizes.map(async size => {
@@ -32,8 +31,7 @@ const cacheIcons = async ({ src, sizes }) => {
       await file
         .clone()
         .resize(size, size)
-        .quality(100)
-        .write(icon);
+        .toFile(icon);
 
       return icon;
     })
@@ -43,25 +41,23 @@ const cacheIcons = async ({ src, sizes }) => {
 const cacheIconsSync = ({ src, sizes }) => {
   const cachepath = getCachePathSync(src);
   const icons = [];
+
   fs.ensureDirSync(cachepath);
 
-  sync(() => {
-    const file = jimp.read.sync(src);
-    sizes.forEach(size => {
-      const icon = join(cachepath, `icon-${size}x${size}.png`);
+  const file = lipo(src);
 
-      icons.push(icon);
+  sizes.forEach(size => {
+    const icon = join(cachepath, `icon-${size}x${size}.png`);
 
-      if (fs.pathExistsSync(icon)) {
-        return icon;
-      }
-
+    if (!fs.pathExistsSync(icon)) {
       file
-        .clone()
-        .resize(size, size)
-        .quality(100)
-        .write.sync(icon);
-    });
+      .clone()
+      .resize(size, size)
+      .toFileSync(icon);
+    }
+
+    icons.push(icon);
+    return icon;
   });
 
   return icons;

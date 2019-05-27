@@ -1,10 +1,11 @@
+const test = require('ava');
 const { join, resolve } = require('path');
 const fs = require('fs-extra');
-const fn = require('../');
+const fn = require('./');
 
-const srcImage = join(__dirname, 'fixtures/icon-192x192.png');
+const srcImage = join(__dirname, 'test/fixtures/icon-192x192.png');
 
-beforeAll(() => {
+test.beforeEach(t => {
   fs.removeSync(resolve(__dirname, '.tmp'));
   fs.removeSync(
     resolve(__dirname, '../node_modules/.cache/pwa-manifest-icons')
@@ -12,13 +13,13 @@ beforeAll(() => {
   fs.ensureDirSync(resolve(__dirname, '.tmp'));
 });
 
-test('typeof', () => {
-  expect(typeof fn).toBe('function');
+test('typeof', t => {
+  t.is(typeof fn, 'function');
 });
 
 test(
   'generate icon',
-  async () => {
+  async t => {
     const opts = {
       src: srcImage,
       cache: true,
@@ -37,15 +38,14 @@ test(
 
     const icons = await fn(opts);
 
-    expect(exist()).toBe(true);
-    expect(match(opts.sizes, icons)).toBe(true);
-  },
-  1000 * 50
+    t.true(exist());
+    t.true(match(opts.sizes, icons));
+  }
 );
 
 test(
   'generate icon in sync',
-  () => {
+  t => {
     const opts = {
       src: srcImage,
       cache: true,
@@ -58,8 +58,6 @@ test(
     const exist = () => opts.sizes.every(size => fs.existsSync(icon(size)));
 
     fn.sync(opts);
-
-    expect(exist()).toBe(true);
-  },
-  1000 * 50
+    t.true(exist());
+  }
 );

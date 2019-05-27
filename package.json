@@ -22,16 +22,15 @@
     "access": "public"
   },
   "scripts": {
-    "test": "jest"
+    "test": "ava"
   },
   "devDependencies": {
-    "jest": "^24.8.0"
+    "ava": "^1.4.1"
   },
   "dependencies": {
     "find-cache-dir": "^3.0.0",
     "fs-extra": "^7.0.1",
     "hasha": "^5.0.0",
-    "jimp": "^0.6.4",
-    "sync": "^0.2.5"
+    "lipo": "^0.0.10"
   }
 }
