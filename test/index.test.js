@@ -35,14 +35,10 @@ test(
           icons[i].src === `/static/manifest/icons/icon-${size}x${size}.png`
       );
 
-    try {
-      const icons = await fn(opts);
+    const icons = await fn(opts);
 
-      expect(exist()).toBe(true);
-      expect(match(opts.sizes, icons)).toBe(true);
-    } catch (e) {
-      console.log('Error', e);
-    }
+    expect(exist()).toBe(true);
+    expect(match(opts.sizes, icons)).toBe(true);
   },
   1000 * 50
 );
@@ -61,10 +57,9 @@ test(
     const icon = size => join(opts.output, `icon-${size}x${size}.png`);
     const exist = () => opts.sizes.every(size => fs.existsSync(icon(size)));
 
-      console.log('start1')
-      fn.sync(opts);
+    fn.sync(opts);
 
-      expect(exist()).toBe(true);
+    expect(exist()).toBe(true);
   },
   1000 * 50
 );
