@@ -17,47 +17,41 @@ test('typeof', t => {
   t.is(typeof fn, 'function');
 });
 
-test(
-  'generate icon',
-  async t => {
-    const opts = {
-      src: srcImage,
-      cache: true,
-      output: `${__dirname}/.tmp/static/manifest/icons/`,
-      publicPath: '/static/manifest/icons/',
-      sizes: [192, 512]
-    };
+test('generate icon', async t => {
+  const opts = {
+    src: srcImage,
+    cache: true,
+    output: `${__dirname}/.tmp/static/manifest/icons/`,
+    publicPath: '/static/manifest/icons/',
+    sizes: [192, 512]
+  };
 
-    const icon = size => join(opts.output, `icon-${size}x${size}.png`);
-    const exist = () => opts.sizes.every(size => fs.existsSync(icon(size)));
-    const match = (sizes, icons) =>
-      sizes.every(
-        (size, i) =>
-          icons[i].src === `/static/manifest/icons/icon-${size}x${size}.png`
-      );
+  const icon = size => join(opts.output, `icon-${size}x${size}.png`);
+  const exist = () => opts.sizes.every(size => fs.existsSync(icon(size)));
+  const match = (sizes, icons) =>
+    sizes.every(
+      (size, i) =>
+        icons[i].src === `/static/manifest/icons/icon-${size}x${size}.png`
+    );
 
-    const icons = await fn(opts);
+  const icons = await fn(opts);
 
-    t.true(exist());
-    t.true(match(opts.sizes, icons));
-  }
-);
+  t.true(exist());
+  t.true(match(opts.sizes, icons));
+});
 
-test(
-  'generate icon in sync',
-  t => {
-    const opts = {
-      src: srcImage,
-      cache: true,
-      output: `${__dirname}/.tmp/static/manifest/icons/`,
-      publicPath: '/static/manifest/icons/',
-      sizes: [192, 512]
-    };
+test('generate icon in sync', t => {
+  const opts = {
+    src: srcImage,
+    cache: true,
+    output: `${__dirname}/.tmp/static/manifest/icons/`,
+    publicPath: '/static/manifest/icons/',
+    sizes: [192, 512]
+  };
 
-    const icon = size => join(opts.output, `icon-${size}x${size}.png`);
-    const exist = () => opts.sizes.every(size => fs.existsSync(icon(size)));
+  const icon = size => join(opts.output, `icon-${size}x${size}.png`);
+  const exist = () => opts.sizes.every(size => fs.existsSync(icon(size)));
 
-    fn.sync(opts);
-    t.true(exist());
-  }
-);
+  fn.sync(opts);
+  t.true(exist());
+});

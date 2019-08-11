@@ -2,7 +2,8 @@ const { join, basename, extname } = require('path');
 const fs = require('fs-extra');
 const findCacheDir = require('find-cache-dir');
 const hasha = require('hasha');
-const lipo = new (require('lipo'))();
+// const lipo = new (require('lipo'))();
+const sharp = require('sharp');
 
 const joinCachePath = hash =>
   join(findCacheDir({ name: 'pwa-manifest-icons', create: true }), hash);
@@ -18,7 +19,6 @@ const getCachePathSync = src => {
 const cacheIcons = async ({ src, sizes }) => {
   const cachepath = await getCachePath(src);
   await fs.ensureDir(cachepath);
-  const file = lipo(src);
 
   return await Promise.all(
     sizes.map(async size => {
@@ -28,9 +28,11 @@ const cacheIcons = async ({ src, sizes }) => {
         return icon;
       }
 
-      await file
-        .clone()
-        .resize(size, size)
+      await sharp()
+        .resize({
+          width: size,
+          height: size
+        })
         .toFile(icon);
 
       return icon;
@@ -44,16 +46,18 @@ const cacheIconsSync = ({ src, sizes }) => {
 
   fs.ensureDirSync(cachepath);
 
-  const file = lipo(src);
-
   sizes.forEach(size => {
     const icon = join(cachepath, `icon-${size}x${size}.png`);
 
     if (!fs.pathExistsSync(icon)) {
-      file
-      .clone()
-      .resize(size, size)
-      .toFileSync(icon);
+      const transformer = sharp().resize({
+        width: size,
+        height: size
+      });
+
+      fs.createReadStream(src)
+        .pipe(transformer)
+        .pipe(fs.createWriteStream(icon));
     }
 
     icons.push(icon);
