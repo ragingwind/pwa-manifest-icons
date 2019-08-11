@@ -28,14 +28,19 @@ const cacheIcons = async ({ src, sizes }) => {
         return icon;
       }
 
-      await sharp()
+      return sharp()
         .resize({
           width: size,
           height: size
         })
+        .extend({
+          top: 0,
+          bottom: size,
+          left: 0,
+          right: size,
+          background: { r: 0, g: 0, b: 0, alpha: 0 }
+        })
         .toFile(icon);
-
-      return icon;
     })
   );
 };
@@ -50,10 +55,18 @@ const cacheIconsSync = ({ src, sizes }) => {
     const icon = join(cachepath, `icon-${size}x${size}.png`);
 
     if (!fs.pathExistsSync(icon)) {
-      const transformer = sharp().resize({
-        width: size,
-        height: size
-      });
+      const transformer = sharp()
+        .resize({
+          width: size,
+          height: size
+        })
+        .extend({
+          top: 0,
+          bottom: size,
+          left: 0,
+          right: size,
+          background: { r: 0, g: 0, b: 0, alpha: 0 }
+        });
 
       fs.createReadStream(src)
         .pipe(transformer)
